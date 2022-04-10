@@ -1,0 +1,23 @@
+--- 
+- name: Destroying Intranet Web Service
+  hosts: servera
+  tasks:
+  - name: Stop and disable httpd 
+    service: 
+      name: httpd 
+      state: stopped 
+      enabled: false 
+  
+  - name: close port in firewalld
+    firewalld: 
+      service: http 
+      immediate: true 
+      permanent: true 
+      state: disabled
+  
+  - name: removing httpd package
+    dnf: 
+      name: httpd 
+      state: absent
+  
+  

@@ -1,0 +1,49 @@
+---
+- name: 
+  hosts: servera
+  vars: 
+    pw: 'redhat' 
+  tasks: 
+  - name: creating ibm1 group 
+    group: 
+      name: ibm1 
+      state: present
+  - name: creating ibm2 group 
+    group: 
+      name: ibm2 
+      state: present
+  - name: creating ibm3 group 
+    group: 
+      name: ibm3 
+      state: present
+  - name: creating ibm4 group 
+    group: 
+      name: ibm4 
+      state: present
+
+  - name: creating user1 group 
+    user: 
+      name: user1 
+      groups: ibm1,ibm2 
+      append: yes
+      password: "{{ pw | password_hash('sha512') }}"
+      update_password: always
+      state: present
+
+  - name: creating user2 group 
+    user: 
+      name: user2
+      groups: ibm3,ibm4 
+      append: yes
+      password: "{{ pw | password_hash('sha512') }}"
+      update_password: always
+      state: present
+
+  - name: creating user3 group 
+    user: 
+      name: user3
+      groups: ibm1,ibm2,ibm3,ibm4 
+      append: yes
+      password: "{{ pw | password_hash('sha512') }}"
+      update_password: always
+      state: present

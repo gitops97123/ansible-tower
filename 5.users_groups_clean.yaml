@@ -1,0 +1,40 @@
+---
+- name: 
+  hosts: servera
+  ignore_errors: true 
+  tasks: 
+  - name: deleting ibm1 group 
+    group: 
+      name: ibm1 
+      state: absent
+  - name: deleting ibm2 group 
+    group: 
+      name: ibm2 
+      state: absent
+  - name: deleting ibm3 group 
+    group: 
+      name: ibm3 
+      state: absent
+  - name: deleting ibm4 group 
+    group: 
+      name: ibm4 
+      state: absent
+
+  - name: deleting user1 group 
+    user: 
+      name: user1 
+      remove: yes 
+      state: absent
+
+  - name: deleting user2 group 
+    user: 
+      name: user2 
+      remove: yes 
+      state: absent
+
+  - name: deleting user3 group 
+    user: 
+      name: user3
+      remove: yes 
+      state: absent
+

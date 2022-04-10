@@ -1,0 +1,27 @@
+--- 
+- name: Intranet Web Service
+  hosts: servera
+  tasks:
+  
+  - name: Install httpd package
+    dnf: 
+      name: httpd 
+      state: latest
+  
+  - name: Create a index file 
+    copy: 
+      content: "Hello World"
+      dest:  /var/www/html/index.html
+  
+  - name: Start and enable httpd 
+    service: 
+      name: httpd 
+      state: restarted 
+      enabled: true 
+  
+  - name: open port 
+    firewalld: 
+      service: http 
+      immediate: true 
+      permanent: true 
+      state: enabled 

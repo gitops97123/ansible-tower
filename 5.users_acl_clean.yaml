@@ -1,0 +1,16 @@
+---
+- name: 
+  hosts: servera
+  vars: 
+    pw: 'redhat' 
+  tasks: 
+  - name: Revoking ACLs for user1 on confidential project directory
+    acl: 
+      path: /IAF 
+      etype: user 
+      entity: user1 
+      state: absent
+
+  - name: Revoking base permissions 
+    command: setfacl -b /IAF
+

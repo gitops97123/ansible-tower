@@ -1,0 +1,56 @@
+---
+- name: Fun Time 
+  hosts: servera
+  tasks: 
+  - name: creating new directory  
+    file:
+      dest: /tmp/folder
+      state: directory
+      mode: 'u=rwx,g=rx,o='    
+    tags: 
+      - t1
+  - name: create a file in directory 
+    file:
+      dest: /tmp/folder/file.txt 
+      state: touch
+    tags: 
+      - t2
+
+  - name: inserting text in file 
+    copy: 
+      content: "Hello World\n" 
+      dest: /tmp/folder/file.txt
+    tags: 
+      - t3
+
+  - name: adding new file in file 
+    lineinfile:
+      path: /tmp/folder/file.txt
+      line: |
+        hello world
+        new hello world 
+        new world 	
+    tags: 
+      - t4
+
+  - name: replacing a word in file 
+    replace: 
+      path: /tmp/folder/file.txt
+      regexp: 'world'
+      replace: 'linux'
+    tags: 
+      - t5
+
+  - name: deleting a file 
+    file:
+      dest: /tmp/folder/file.txt
+      state: absent
+    tags: 
+      - t6
+
+  - name: deleting a directory 
+    file:
+      dest: /tmp/folder
+      state: absent
+    tags: 
+      - t7

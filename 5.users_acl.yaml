@@ -1,0 +1,40 @@
+---
+- name: 
+  hosts: servera
+  vars: 
+    pw: 'redhat' 
+  tasks: 
+  - name: Creating confidential project directory 
+    file: 
+      dest: /IAF
+      mode: '0700' 
+      state: directory
+
+  - name: creating user1 group 
+    user: 
+      name: user1 
+      password: "{{ pw | password_hash('sha512') }}"
+      update_password: always
+      state: present
+
+  - name: creating user2 group 
+    user: 
+      name: user2
+      password: "{{ pw | password_hash('sha512') }}"
+      update_password: always
+      state: present
+
+  - name: creating user3 group 
+    user: 
+      name: user3
+      password: "{{ pw | password_hash('sha512') }}"
+      update_password: always
+      state: present
+  - name: Applying ACLs for user1 on confidential project directory
+    acl: 
+      path: /IAF 
+      etype: user 
+      entity: user1 
+      permissions: rwx 
+      state: present 
+
